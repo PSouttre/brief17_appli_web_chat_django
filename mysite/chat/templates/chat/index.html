@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>Chat Rooms</title>
+</head>
+<body>
+    {% if request.user.is_authenticated  %}
+        <p>{{ request.user.username }}, dans quelle discussion voulez-vous entrer?</p>
+
+        <input id="room-name-input" type="text" size="100"><br>
+        <input id="room-name-submit" type="button" value="Enter">
+
+        <form action="{% url 'logout-user' %}" method="post" style="display:inline;">
+            {% csrf_token %}
+            <button type="submit">Logout</button>
+        </form>
+
+        <script>
+            document.querySelector('#room-name-input').focus();
+            document.querySelector('#room-name-input').onkeyup = function(e) {
+                if (e.key === 'Enter') {  // enter, return
+                    document.querySelector('#room-name-submit').click();
+                }
+            };
+
+            document.querySelector('#room-name-submit').onclick = function(e) {
+                var roomName = document.querySelector('#room-name-input').value;
+                window.location.pathname = '/chat/' + roomName + '/';
+            };
+        </script>
+
+    {% else %}
+        <p>Vous devez être connecté pour accéder aux discussions</p>
+        <p>Connexion<a href="{% url 'login-user' %}">Me connecter</a></p>
+
+
+        <p>Si vous n'avez pas encore de compte :
+            <a href="{% url 'register-user' %}">Créer mon compte</a>
+        </p>
+    {% endif %}
+</body>
+</html>
