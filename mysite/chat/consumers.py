@@ -6,6 +6,12 @@ from channels.generic.websocket import AsyncWebsocketConsumer
 
 class ChatConsumer(AsyncWebsocketConsumer):
     async def connect(self):
+        user = self.scope["user"]
+        if not user.is_authenticated:
+            # Refuser la connexion si l'utilisateur n'est pas authentifié
+            await self.close()
+            return
+
         self.room_name = self.scope["url_route"]["kwargs"]["room_name"]
         self.room_group_name = f"chat_{self.room_name}"
 
