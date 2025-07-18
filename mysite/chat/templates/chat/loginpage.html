@@ -1,12 +1,44 @@
 <!DOCTYPE html>
 <html>
+<head>
+    <meta charset="utf-8"/>
+    <title>Connexion</title>
+</head>
 <body>
-    <form method ="post" autocomplete="off">
-        {% csrf_token %}
-        {{form.as_p}}
-        <br>
-        <button type = "submit">Login</button>
-    </form>
-    <p>Si vous n'avez pas encore de compte <a href="{% url 'register-user' %}">Créer mon compte</a></p>
+    <h3>Connexion</h3>
+        <p>Vous devez être connecté pour accéder aux discussions</p>
+        <form method="post" action="{% url 'login-user' %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Se connecter</button>
+        </form>
+
+    <h3>Créer un compte</h3>
+<!--        <p>Si vous n'avez pas encore de compte :<br>-->
+
+            <a href="{% url 'register-user' %}" style="
+                display: inline-block;
+                background-color: #f0f0f0;
+                color: black;
+                padding: 1px 6px;
+                text-align: center;
+                text-decoration: none;
+                border: 1px black solid;
+                border-radius: 3px;
+                cursor: pointer;
+                font-family: arial;
+                font-size:13.33px
+
+            ">Créer mon compte</a>
+                    </p>
+
+
+<!--    <form method ="post" autocomplete="off">-->
+<!--        {% csrf_token %}-->
+<!--        {{form.as_p}}-->
+<!--        <br>-->
+<!--        <button type = "submit">Login</button>-->
+<!--    </form>-->
+<!--    <p>Si vous n'avez pas encore de compte <a href="{% url 'register-user' %}">Créer mon compte</a></p>-->
 </body>
 </html>
